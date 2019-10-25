@@ -1,0 +1,25 @@
+  
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pod-node-label-controller
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      name: pod-node-label-controller
+  template:
+    metadata:
+      labels:
+        name: pod-node-label-controller
+    spec:
+      serviceAccountName: "pod-node-label-{{ .Release.Name }}"
+      containers:
+      - name: pod-node-label-controller
+        image: '{{ .Values.image }}'
+        imagePullPolicy: Always
+        args:
+        {{- range .Values.labels }}
+        - '-label'
+        - '{{ . }}'
+        {{- end }}

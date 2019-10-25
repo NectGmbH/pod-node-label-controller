@@ -1,0 +1,3 @@
+name: pod-node-label-controller
+description: controller which syncs labels from node to pods
+version: 0.1.0
