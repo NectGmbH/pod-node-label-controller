@@ -86,7 +86,15 @@ func (l *Labeler) labelPod(pod *corev1.Pod) error {
     dirty := false
 
     podLabels := pod.GetLabels()
+    if podLabels == nil {
+        podLabels = make(map[string]string)
+    }
+
     nodeLables := node.GetLabels()
+    if nodeLables == nil {
+        nodeLables = make(map[string]string)
+    }
+
     for _, labelName := range l.labels {
         labelValue, ok := nodeLables[labelName]
         if !ok {
